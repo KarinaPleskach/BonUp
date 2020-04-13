@@ -23,12 +23,11 @@ public class Language extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
-    @Column(nullable = false)
-    @NonNull
-    private Boolean active;
+    @Column(name = "active_status", columnDefinition = "bool (Types#BIT)")
+    private boolean active;
 
     @Builder
-    public Language(@NonNull String lang, @NonNull String name, @NonNull Boolean active) {
+    public Language(@NonNull String lang, @NonNull String name, boolean active) {
         this.lang = lang;
         this.name = name;
         this.active = active;

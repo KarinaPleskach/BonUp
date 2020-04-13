@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @NoArgsConstructor @Getter @Setter
 @ToString(callSuper = true, exclude = {})
 public class User extends AbstractEntity {
@@ -28,8 +28,8 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String password;
-    @Column(name = "verify_mail")
-    private boolean verifyMail;
+    @Column(name = "verify_mail", columnDefinition = "bool (Types#BIT)")
+    private Boolean verifyMail;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -43,7 +43,7 @@ public class User extends AbstractEntity {
 
     @Builder
     public User(String email, String password,
-                boolean verifyMail) {
+                Boolean verifyMail) {
         this(email, password);
         this.verifyMail = verifyMail;
     }
