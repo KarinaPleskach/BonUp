@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/test").hasRole("MINIMAL_USER")
                 .antMatchers("/changeLanguage").permitAll()
-                .antMatchers("/registration").permitAll();
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/").permitAll();
         http
                 .formLogin()
                 .loginPage("/login")
