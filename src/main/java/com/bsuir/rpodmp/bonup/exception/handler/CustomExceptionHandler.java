@@ -32,7 +32,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 languageRepository.findByActiveTrue(),
                 languageKeyRepository.findByKey(e.getKey()))
                 .orElseThrow(BaseException::new);
-        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.FORBIDDEN);
     }
 
     @Data
