@@ -36,13 +36,13 @@ public class RegistrationController {
 
     @PutMapping(value = "/registration")
     @ResponseBody
-    public ResponseEntity<ResponseException> createNewUser(@RequestBody AuthUserDto user) {
+    public String createNewUser(@RequestBody AuthUserDto user) {
         registrationService.saveUser(user);
         LanguageTranslation translation = languageTranslationRepository.findByLanguageAndLanguageKey(
                     languageRepository.findByActiveTrue(),
                     languageKeyRepository.findByKey("message.successRegistration"))
                     .orElseThrow(BaseException::new);
-        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.OK);
+        return translation.getValue();
     }
 
     @GetMapping("/login")
