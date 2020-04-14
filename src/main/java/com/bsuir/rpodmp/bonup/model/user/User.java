@@ -28,8 +28,8 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String password;
-    @Column(name = "verify_mail", columnDefinition = "bool (Types#BIT)")
-    private Boolean verifyMail;
+    @Column(name = "verify_mail")
+    private boolean verifyMail;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -43,7 +43,7 @@ public class User extends AbstractEntity {
 
     @Builder
     public User(String email, String password,
-                Boolean verifyMail) {
+                boolean verifyMail) {
         this(email, password);
         this.verifyMail = verifyMail;
     }

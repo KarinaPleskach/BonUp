@@ -23,7 +23,7 @@ public class Language extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
-    @Column(name = "active_status", columnDefinition = "bool (Types#BIT)")
+    @Column(name = "active_status")
     private boolean active;
 
     @Builder
