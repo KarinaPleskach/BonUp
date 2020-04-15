@@ -36,32 +36,32 @@ public class RegistrationController {
 
     @PutMapping(value = "/registration")
     @ResponseBody
-    public String createNewUser(@RequestBody AuthUserDto user) {
+    public ResponseEntity<ResponseException> createNewUser(@RequestBody AuthUserDto user) {
         registrationService.saveUser(user);
         LanguageTranslation translation = languageTranslationRepository.findByLanguageAndLanguageKey(
                     languageRepository.findByActiveTrue(),
                     languageKeyRepository.findByKey("message.successRegistration"))
                     .orElseThrow(BaseException::new);
-        return translation.getValue();
+        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.OK);
     }
 
-    @GetMapping("/login")
-    @ResponseBody
-    public ResponseEntity<ResponseException> login(@RequestParam(required = false) String error) {
-        LanguageTranslation translation;
-        if (Objects.isNull(error)) {
-            translation = languageTranslationRepository.findByLanguageAndLanguageKey(
-                    languageRepository.findByActiveTrue(),
-                    languageKeyRepository.findByKey("message.pleaseLogin"))
-                    .orElseThrow(BaseException::new);
-        } else {
-            translation = languageTranslationRepository.findByLanguageAndLanguageKey(
-                    languageRepository.findByActiveTrue(),
-                    languageKeyRepository.findByKey("message.failLogin"))
-                    .orElseThrow(BaseException::new);
-        }
-        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.FORBIDDEN);
-    }
+//    @GetMapping("/login")
+//    @ResponseBody
+//    public ResponseEntity<ResponseException> login(@RequestParam(required = false) String error) {
+//        LanguageTranslation translation;
+//        if (Objects.isNull(error)) {
+//            translation = languageTranslationRepository.findByLanguageAndLanguageKey(
+//                    languageRepository.findByActiveTrue(),
+//                    languageKeyRepository.findByKey("message.pleaseLogin"))
+//                    .orElseThrow(BaseException::new);
+//        } else {
+//            translation = languageTranslationRepository.findByLanguageAndLanguageKey(
+//                    languageRepository.findByActiveTrue(),
+//                    languageKeyRepository.findByKey("message.failLogin"))
+//                    .orElseThrow(BaseException::new);
+//        }
+//        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.FORBIDDEN);
+//    }
 
     @GetMapping("/success_login")
     @ResponseBody
@@ -70,7 +70,7 @@ public class RegistrationController {
                 languageRepository.findByActiveTrue(),
                 languageKeyRepository.findByKey("message.successLogin"))
                 .orElseThrow(BaseException::new);
-        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.OK);
     }
 
     @Data

@@ -2,14 +2,13 @@ create table  language (
     id bigserial primary key,
     lang character varying(3) not null,
     name character varying(45) not null,
-    active_status boolean not null,
     constraint languages_lang_uq unique (lang),
     constraint languages_name_uq unique (name)
 );
 
-insert into language (lang, name, active_status) values
-    ('en', 'English', true),
-    ('ru', 'Русский', false);
+insert into language (lang, name) values
+    ('en', 'English'),
+    ('ru', 'Русский');
 
 create table  language_key (
     id bigserial primary key,

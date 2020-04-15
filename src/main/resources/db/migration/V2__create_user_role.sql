@@ -13,5 +13,7 @@ create table  user_role (
 );
 
 insert into role (description) values
-    ('ROLE_MINIMAL_USER'),
+    ('ROLE_USER'),
+    ('ROLE_EMPLOYEE'),
+    ('ROLE_ORGANIZATION_ADMIN'),
     ('ROLE_GLOBAL_ADMIN');
