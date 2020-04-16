@@ -1,6 +1,8 @@
 package com.bsuir.rpodmp.bonup.model.user;
 
 public enum UserRole {
-    ROLE_MINIMAL_USER,
-    ROLE_GLOBAL_ADMIN,
+    ROLE_USER,
+    ROLE_EMPLOYEE,
+    ROLE_ORGANIZATION_ADMIN,
+    ROLE_GLOBAL_ADMIN
 }

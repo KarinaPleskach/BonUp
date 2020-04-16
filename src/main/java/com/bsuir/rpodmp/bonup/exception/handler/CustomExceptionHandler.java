@@ -5,7 +5,6 @@ import com.bsuir.rpodmp.bonup.dao.translation.LanguageRepository;
 import com.bsuir.rpodmp.bonup.dao.translation.LanguageTranslationRepository;
 import com.bsuir.rpodmp.bonup.exception.BaseException;
 import com.bsuir.rpodmp.bonup.exception.validation.BaseValidationException;
-import com.bsuir.rpodmp.bonup.exception.validation.NullValidationException;
 import com.bsuir.rpodmp.bonup.model.translation.LanguageTranslation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,19 +25,22 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @Autowired
     private LanguageKeyRepository languageKeyRepository;
 
-    @ExceptionHandler({BaseValidationException.class, NullValidationException.class})
+    @ExceptionHandler({BaseException.class})
     protected ResponseEntity<ResponseException> handleValidationException(BaseValidationException e) {
         LanguageTranslation translation = languageTranslationRepository.findByLanguageAndLanguageKey(
-                languageRepository.findByActiveTrue(),
-                languageKeyRepository.findByKey(e.getKey()))
+                languageRepository.findByLang(e.getLang())
+                    .orElseThrow(BaseException::new),
+                languageKeyRepository.findByKey(e.getKey())
+                    .orElseThrow(BaseException::new))
                 .orElseThrow(BaseException::new);
-        return new ResponseEntity<>(new ResponseException(translation.getValue()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseException(translation.getValue(), false), HttpStatus.BAD_REQUEST);
     }
 
     @Data
     @AllArgsConstructor
     private static class ResponseException {
         private String message;
+        private Boolean isSuccess;
     }
 
 }

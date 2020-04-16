@@ -1,4 +1,4 @@
-package com.bsuir.rpodmp.bonup.model.translation;
+package com.bsuir.rpodmp.bonup.model.user;
 
 import com.bsuir.rpodmp.bonup.model.AbstractEntity;
 import lombok.Builder;
@@ -13,21 +13,16 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "language")
+@Table(name = "profile")
 @NoArgsConstructor @Getter @Setter
 @ToString(callSuper = true, exclude = {})
-public class Language extends AbstractEntity {
-    @Column(nullable = false)
-    @NonNull
-    private String lang;
+public class Profile extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
 
     @Builder
-    public Language(@NonNull String lang, @NonNull String name) {
-        this.lang = lang;
+    public Profile(@NonNull String name) {
         this.name = name;
     }
-
 }

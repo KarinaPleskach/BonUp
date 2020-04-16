@@ -8,11 +8,15 @@ public class BaseException extends RuntimeException {
 
     private String key;
 
-    public BaseException() {
+    private String lang;
+
+    public BaseException(String lang) {
         super();
+        this.lang = lang;
     }
 
-    public BaseException(String message) {
-        super(message);
+    public BaseException() {
+
     }
+
 }

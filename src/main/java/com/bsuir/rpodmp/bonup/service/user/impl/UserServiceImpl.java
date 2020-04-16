@@ -4,8 +4,6 @@ import com.bsuir.rpodmp.bonup.dao.user.UserRepository;
 import com.bsuir.rpodmp.bonup.model.user.User;
 import com.bsuir.rpodmp.bonup.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,30 +32,4 @@ public class UserServiceImpl implements UserService {
     }
     //--------------------------------------------------
 
-    // Current user section
-    @Override
-    public Optional<User> getCurrentUser() {
-        return findByMail(getCurrentUserMail());
-    }
-
-    @Override
-    public String getCurrentUserMail() {
-        return getCurrentAuthentication().getName();
-    }
-
-    private Authentication getCurrentAuthentication() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Optional.ofNullable(auth)
-//                .orElseThrow(NoCurrentUserException::new);
-        return auth;
-    }
-
-//    @Override
-//    public boolean isCurrentUser(String mail) throws NoCurrentUserException {
-//        if (Objects.isNull(mail)) {
-//            return false;
-//        }
-//        return mail.equals(getCurrentUserMail());
-//    }
-    //--------------------------------------------------
 }

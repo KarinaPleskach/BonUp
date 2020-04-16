@@ -30,6 +30,10 @@ public class User extends AbstractEntity {
     private String password;
     @Column(name = "verify_mail")
     private boolean verifyMail;
+    @Column
+    private String token;
+    @Column(name = "mail_code")
+    private String mailCode;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,10 +45,17 @@ public class User extends AbstractEntity {
         this.password = password;
     }
 
-    @Builder
     public User(String email, String password,
                 boolean verifyMail) {
         this(email, password);
         this.verifyMail = verifyMail;
+    }
+
+    @Builder
+    public User(String email, String password, boolean verifyMail,
+                String token, String mailCode) {
+        this(email, password, verifyMail);
+        this.token = token;
+        this.mailCode = mailCode;
     }
 }

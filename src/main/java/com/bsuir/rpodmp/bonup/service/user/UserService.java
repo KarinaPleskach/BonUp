@@ -13,8 +13,4 @@ public interface UserService {
 
     boolean isUserPresent(String mail);
 
-    // Current user section
-    Optional<User> getCurrentUser();
-
-    String getCurrentUserMail();
 }

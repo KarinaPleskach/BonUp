@@ -14,6 +14,8 @@ public class AuthUserDtoToUserConverter implements Converter<AuthUserDto, User> 
                 .email(authUserDto.getEmail())
                 .password(authUserDto.getPassword())
                 .verifyMail(false)
+                .mailCode(null)
+                .token(null)
                 .build();
     }
 
