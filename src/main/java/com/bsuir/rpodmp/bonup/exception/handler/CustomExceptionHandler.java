@@ -6,6 +6,7 @@ import com.bsuir.rpodmp.bonup.dao.translation.LanguageTranslationRepository;
 import com.bsuir.rpodmp.bonup.exception.BaseException;
 import com.bsuir.rpodmp.bonup.exception.validation.BaseValidationException;
 import com.bsuir.rpodmp.bonup.model.translation.LanguageTranslation;
+import com.bsuir.rpodmp.bonup.service.translation.TranslationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Autowired
-    private LanguageTranslationRepository languageTranslationRepository;
-    @Autowired
-    private LanguageRepository languageRepository;
-    @Autowired
-    private LanguageKeyRepository languageKeyRepository;
+    private TranslationService translationService;
 
     @ExceptionHandler({BaseException.class})
     protected ResponseEntity<ResponseException> handleValidationException(BaseValidationException e) {
-        LanguageTranslation translation = languageTranslationRepository.findByLanguageAndLanguageKey(
-                languageRepository.findByLang(e.getLang())
-                    .orElseThrow(BaseException::new),
-                languageKeyRepository.findByKey(e.getKey())
-                    .orElseThrow(BaseException::new))
-                .orElseThrow(BaseException::new);
-        return new ResponseEntity<>(new ResponseException(translation.getValue(), false), HttpStatus.BAD_REQUEST);
+        String message = translationService.getMessage(e.getKey(), e.getLang());
+        return new ResponseEntity<>(new ResponseException(message, false), HttpStatus.BAD_REQUEST);
     }
 
     @Data

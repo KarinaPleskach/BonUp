@@ -23,11 +23,4 @@ public class Language extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
-
-    @Builder
-    public Language(@NonNull String lang, @NonNull String name) {
-        this.lang = lang;
-        this.name = name;
-    }
-
 }

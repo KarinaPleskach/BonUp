@@ -10,6 +10,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +22,14 @@ public class Profile extends AbstractEntity {
     @Column(nullable = false)
     @NonNull
     private String name;
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @NonNull
+    private User user;
 
     @Builder
-    public Profile(@NonNull String name) {
+    public Profile(@NonNull String name, User user) {
         this.name = name;
+        this.user = user;
     }
 }
